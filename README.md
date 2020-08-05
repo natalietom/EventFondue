@@ -1,5 +1,6 @@
 # EventFondue
 A Node.js web application with RESTful routing, where users can create, view, and write reviews on events. This is a modified version of the final project from the Udemy Course: *The Web Developer Bootcamp by Colt Steele*.
+> Live demo deployed at: https://eventfondue.herokuapp.com/
 
 ## Features
 * Authentication
