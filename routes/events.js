@@ -54,7 +54,7 @@ router.get("/:id", function(req, res){
 	//find the event with provided ID
 	Event.findById(req.params.id).populate({
 		path: "reviews",
-		options: {sort: {createdAt: -1}}
+		options: {sort: {createdOn: -1}}
 	}).exec(function(err, foundEvent){
 		if(err || !foundEvent){
 			req.flash("error", "Event not found");

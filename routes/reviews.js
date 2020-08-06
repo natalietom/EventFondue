@@ -8,7 +8,7 @@ const middleware = require("../middleware");
 router.get("/", function(req, res){
 	Event.findById(req.params.id).populate({
 		path: "reviews",
-		options: {sort: {CreatedOn: -1}}
+		options: {sort: {createdOn: -1}}
 	}).exec(function(err, event){
 		if(err || !event){
 			req.flash("error", "Event not found");

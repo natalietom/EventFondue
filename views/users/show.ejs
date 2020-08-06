@@ -1,0 +1,62 @@
+<%- include("../partials/header") %>
+
+<div class="row">
+	<div class="col-md-3">
+		<div class="card-deck">
+			<div class="card">
+				<img src="<%=user.avatar%>" class="card-img-top" alt="User Profile Image">
+				<div class="card-body">
+					<h1 class="card-title">
+						<%= user.username%>
+					</h1>
+					<a class="card-text" href="mailto:<%=user.email%>"><%=user.email%></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-9">
+		<h3>
+			<%= user.username %>'s Events
+		</h3>
+		<ul class="list-group list-group-flush">
+			<% events.forEach(function(event){ %>
+				<li class="list-group-item">
+					<a href="/events/<%=event.id%>"><%= event.name %></a>
+					<p class="float-right">
+						<%= moment(event.createdOn).fromNow() %>,
+						<%= event.createdOn.toDateString() %>
+					</p>
+				</li>
+			<% }); %>
+		</ul>
+		
+		<h3 class="mt-5"> Reviews </h3>
+		<ul class="list-group list-group-flush">
+			<% reviews.forEach(function(review){ %>
+				<li class="list-group-item">
+					<% if(review.rating !== 0) { %>
+						<div>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star <% if(review.rating > 1.5){ %> checked <% } %>"></span>
+							<span class="fa fa-star <% if(review.rating > 2.5){ %> checked <% } %>"></span>
+							<span class="fa fa-star <% if(review.rating > 3.5){ %> checked <% } %>"></span>
+							<span class="fa fa-star <% if(review.rating > 4.5){ %> checked <% } %>"></span>
+						</div>
+					
+						<%=review.text%>
+					
+						<p class="float-right">
+							<%= moment(review.createdOn).fromNow() %>,
+							<%= review.createdOn.toDateString() %>
+						</p>
+					
+					<% }%>
+					
+				</li>
+			<%});%>
+			
+		</ul>
+	</div>
+</div>
+
+<%- include("../partials/footer") %>

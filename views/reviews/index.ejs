@@ -7,6 +7,7 @@
 	<div class="card bg-light col-md-12">
 		<div class="card-body"> 
 			<div class="text-right">
+				<h4 class="float-left">All reviews for this event:</h4>
 				<a class="btn btn-primary <% if (currentUser && event.reviews.some(function (review) {return review.author.id.equals(currentUser._id)})) { %> disabled <% } %>" href="/events/<%= event._id %>/reviews/new">
 					Write a Review
 				</a>
@@ -29,7 +30,6 @@
 						Current event rating: <strong><%= event.rating.toFixed(2) %></strong>
 					</p>
 
-					<p><h4>All reviews for this event:</h4></p>
 					<hr style="margin-top: 0;">
 					<div class="row"> <!-- moved up -->
 						<% event.reviews.forEach(function(review){ %>
@@ -40,14 +40,14 @@
 										<div><%- '<span class="fa fa-star checked"></span>'.repeat(review.rating) %><%- '<span class="fa fa-star"></span>'.repeat(5 - review.rating) %></div>
 										<div class="float-left">
 											<p class="card-title">
-												Review by: <strong><%= review.author.username %></strong>
+												Review by: <a href="/users/<%=review.author.id%>"><strong><%= review.author.username %></strong></a>
 											</p>
 											<p class="card-text">
 												<%= review.text %>
 											</p>
 										</div>
 										<div class="float-right">
-											<p><em><%= review.updatedAt.toDateString() %></em></p>
+											<p><em><%= moment(review.createdOn).fromNow() %>, <%= review.createdOn.toDateString() %></em></p>
 									
 											<% if(currentUser && review.author.id.equals(currentUser._id)){ %>
 												<div class="float-right">

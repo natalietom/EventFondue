@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 
 var reviewSchema = new mongoose.Schema({
+	createdOn: { type: Date, default: Date.now},
     rating: {
         type: Number,
         required: "Please provide a rating (1-5 stars).",
@@ -25,8 +26,6 @@ var reviewSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Event"
     }
-}, {
-    timestamps: true
 });
 
 module.exports = mongoose.model("Review", reviewSchema);

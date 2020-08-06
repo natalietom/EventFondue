@@ -11,7 +11,7 @@
 					  <p class="float-right">$<%= event.price %>/night</p>
                     <h5 class="card-title"><%= event.name %></h5>
 					  <p>
-						<em>Submitted By <%= event.author.username %>, <%= moment(event.createdOn).fromNow() %></em>
+						  <em>Submitted By <a href="/users/<%=event.author.id%>"><%= event.author.username %></a>, <%= moment(event.createdOn).fromNow() %></em>
 					</p>
 					 <hr>
                    <p class="card-text"><%= event.description %></p>
@@ -29,6 +29,7 @@
 			<div class="card bg-light mb-3">
 				<div class="card-body">
 					<div class="text-right">
+						<h4 class="float-left">Reviews for this event: </h4>
 						<a class="btn btn-success <% if (currentUser && event.reviews.some(function (review) {return review.author.id.equals(currentUser._id)})) { %> disabled <% } %>" href="/events/<%= event._id %>/reviews/new">
 	                    	Write a Review
 						</a>
@@ -51,7 +52,6 @@
 							<p>
 								Average rating: <strong><%= event.rating.toFixed(2) %></strong>
 							</p>
-							<p><h4>Recent reviews for this event: </h4></p>
 							<hr style="margin-top: 0;">
 					
 							<div class="row">
@@ -60,19 +60,20 @@
 										<div class="card">
 											<div class="card-body">
 												<div>
-												<%- '<span class="fa fa-star checked"></span>'.repeat(review.rating) %><%- '<span class="fa fa-star"></span>'.repeat(5 - review.rating) %>
+													<p class="card-title">
+														Review by: <a href="/users/<%=review.author.id%>"><strong><%= review.author.username %></strong></a>
+														
+														<em class="float-right"><%= moment(review.createdOn).fromNow() %></em>
+													</p>
+													
 												</div>
 												<div class="float-left">
-													<p class="card-title">
-														Review by: <strong><%= review.author.username %></strong>
-													</p>
+													<%- '<span class="fa fa-star checked"></span>'.repeat(review.rating) %><%- '<span class="fa fa-star"></span>'.repeat(5 - review.rating) %>
 													<p class="card-text">
 														<%= review.text %>
 													</p>
 												</div>
 												<div class="float-right">
-													<p><em><%= review.updatedAt.toDateString() %></em></p>
-												
 													<% if(currentUser && review.author.id.equals(currentUser._id)){ %>
 														<div class="float-right">
 															<a class="btn btn-sm btn-warning" href="/events/<%=event._id %>/reviews/<%=review._id %>/edit">
