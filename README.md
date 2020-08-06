@@ -6,6 +6,7 @@ A Node.js web application with RESTful routing, where users can create, view, an
 * Authentication
 * Authorization
 * Managing Events
+* User Account
 
 ### Authentication
 Sign up or login to create a new event, write a review, or delete an event with a username and password.
@@ -16,6 +17,9 @@ Events and reviews can be edited through authentication of owner. Flash messages
 ### Managing Events
 * Create, edit and delete event post or review
 * Update event name, price, image, or description
+
+### User Account
+Users have a profile page with initial setup that includes a user profile picture and related event posts.
 
 ## Technologies and Tools
 ### Built with:
