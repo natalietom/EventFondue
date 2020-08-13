@@ -17,9 +17,16 @@
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item <%= typeof page !== 'undefined' && page === 'events' ? 'active' : '' %>">
-						<a href="/events" class="nav-link">Home</a>
+						<a href="/events" class="nav-link">View Events</a>
 					</li>
 				</ul>
+				<form action="/events" method="GET" class="form-inline my-2 my-lg-0 mr-3">
+					<input class="form-control mr-sm-2" type="text" placeholder="(Event Search)" name="search">
+					<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
+						Search
+					</button>
+    			</form>
+				
 				<ul class="navbar-nav">
 					<% if(!currentUser){ %>
 						<li class="nav-item <%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>">

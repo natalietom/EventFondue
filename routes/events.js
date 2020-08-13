@@ -2,19 +2,35 @@ const express = require("express");
 const router = express.Router(); 
 const Event = require("../models/event");
 const Review = require("../models/review");
-const middleware = require("../middleware"); //if require the folder then it'll automatically look for a file named "index.js"
+const middleware = require("../middleware/index.js"); //if require the folder then it'll automatically look for a file named "index.js"
+const searchfunc = require("../middleware/search.js");
 
 //INDEX - show all events
 router.get("/", function(req, res){
 	//console.log(req.user); //can show logged in username and id
-	//Get all events from DB
-	Event.find({}, function(err, allEvents){
-		if(err){
-			console.log(err);
-		}else{
-			res.render("events/index", {events:allEvents, page: "events"}); 
-		}
-	});
+	
+	//SEARCH EVENTS
+	//eval(require("locus"));
+	if(req.query.search){
+		const regex = new RegExp(searchfunc.escapeRegex(req.query.search), 'gi'); //regex is a new RegExp and passes return and flags with 'gi' - global/insenstive(ignore)
+		Event.find({name:regex}, function(err, allEvents){
+			if(err || !allEvents.length){
+				req.flash("error", "No matching events. Try a different search!");
+				res.redirect("back");
+			}else{
+				res.render("events/index", {events:allEvents, page: "events"}); 
+			}
+		});
+	}else{
+		//Get all events from DB
+		Event.find({}, function(err, allEvents){
+			if(err){
+				console.log(err);
+			}else{
+				res.render("events/index", {events:allEvents, page: "events"}); 
+			}
+		});
+	}
 });
 
 //CREATE - add new event to DB
@@ -114,6 +130,5 @@ router.delete("/:id", middleware.checkEventOwnership, function(req, res){
 		}
 	});		 
 });
-
 
 module.exports = router;

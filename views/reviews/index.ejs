@@ -30,25 +30,29 @@
 						Current event rating: <strong><%= event.rating.toFixed(2) %></strong>
 					</p>
 
+					
 					<hr style="margin-top: 0;">
-					<div class="row"> <!-- moved up -->
+					<div class="row"> 
 						<% event.reviews.forEach(function(review){ %>
 
 							<div class="col-md-12 mb-2">
 								<div class="card">
 									<div class="card-body">
-										<div><%- '<span class="fa fa-star checked"></span>'.repeat(review.rating) %><%- '<span class="fa fa-star"></span>'.repeat(5 - review.rating) %></div>
-										<div class="float-left">
+										<div>
 											<p class="card-title">
 												Review by: <a href="/users/<%=review.author.id%>"><strong><%= review.author.username %></strong></a>
+												<em class="float-right"><%= moment(review.createdOn).fromNow() %>, <%= review.createdOn.toDateString() %></em>
 											</p>
+										</div>
+										
+										<div class="float-left">
+											<%- '<span class="fa fa-star checked"></span>'.repeat(review.rating) %><%- '<span class="fa fa-star"></span>'.repeat(5 - review.rating) %>
 											<p class="card-text">
 												<%= review.text %>
 											</p>
 										</div>
+										
 										<div class="float-right">
-											<p><em><%= moment(review.createdOn).fromNow() %>, <%= review.createdOn.toDateString() %></em></p>
-									
 											<% if(currentUser && review.author.id.equals(currentUser._id)){ %>
 												<div class="float-right">
 													<a class="btn btn-xs btn-warning"
