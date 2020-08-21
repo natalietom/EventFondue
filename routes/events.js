@@ -83,6 +83,37 @@ router.get("/:id", function(req, res){
 	});
 });
 
+//LIKE EVENT ROUTE
+router.post("/:id/like", middleware.isLoggedIn, function(req, res){
+	Event.findById(req.params.id, function(err, foundEvent){
+		if(err || !foundEvent){
+			req.flash("error", "Event not found");
+			return res.redirect("back");
+		}
+		
+		//check if user._id exists in foundEvent.likes
+		let foundUserLike = foundEvent.likes.some(function(like){
+			return like.equals(req.user._id);
+		});
+		
+		if(foundUserLike){
+			//user has liked, remove like
+			foundEvent.likes.pull(req.user._id);
+		}else{
+			//add new user like
+			foundEvent.likes.push(req.user);
+		}
+		
+		foundEvent.save(function(err){
+			if(err){
+				req.flash("error", err.message);
+				return res.redirect("/events");
+			}
+			return res.redirect("/events/" + foundEvent._id);
+		});
+	});
+});
+
 //EDIT EVENT ROUTE
 router.get("/:id/edit", middleware.checkEventOwnership, function(req, res){
 	Event.findById(req.params.id, function(err, foundEvent){

@@ -24,7 +24,13 @@ const eventSchema = new mongoose.Schema({
 	rating: {
 		type: Number,
 		default: 0
-	}
+	},
+	 likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ]
 });
 
 //when events.js file is required, it'll be the model

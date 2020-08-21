@@ -15,6 +15,23 @@
 					</p>
 					 <hr>
                    <p class="card-text"><%= event.description %></p>
+					  
+					  <!-- like button -->
+					  <form action="/events/<%= event._id %>/like" method="POST">
+						  <div class="btn-group float-right">
+							  <% if (currentUser && event.likes.some(function (like) {
+                return like.equals(currentUser._id)
+            })) { %>
+                <button class="btn btn-sm btn-primary">
+                    <i class="fas fa-thumbs-up"></i> Liked (<%= event.likes.length %>)
+                </button>
+            <% } else { %>
+                <button class="btn btn-sm btn-link">
+                    <i class="fas fa-thumbs-up"></i> Like (<%= event.likes.length %>)
+                </button>
+            <% } %>
+						  </div>
+					  </form>
 					
 					<% if(currentUser && event.author.id.equals(currentUser._id)){ %>
 						<a class="btn btn-sm btn-warning" href="/events/<%= event._id%>/edit">Edit</a>
