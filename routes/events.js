@@ -53,6 +53,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 		}else{
 			//redirect back to events page. default is a get request
 			console.log(newlyCreated);
+			req.flash("success", "Event successfully created!");
 			res.redirect("/events");
 		}
 	});
