@@ -4,6 +4,7 @@ html{
 }
 
 body{
+	font-family: "Roboto", sans-serif;
 	margin-bottom: 60px;
 }
 
@@ -12,6 +13,7 @@ body{
   max-width: 330px;
   padding: 15px;
   margin: auto;
+  text-align: center;
 }
 
 .form-signin .form-control {
@@ -44,4 +46,14 @@ body{
 
 .checked {
 	color: #F7D35E;
+}
+
+.card-img-top.index {
+    width: 100%;
+    height: 20vw;
+    object-fit: cover;
+}
+
+.jumbotron {
+	background: #F7F9F9;
 }
